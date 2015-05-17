@@ -146,7 +146,8 @@ missing</code></pre>
 </ol>
 <pre class="r"><code>library(plyr)</code></pre>
 <pre><code>## Warning: package 'plyr' was built under R version 3.1.3</code></pre>
-<pre class="r"><code>mean_imput &lt;- function(x) replace(x, is.na(x), mean(x, na.rm = TRUE))
+<pre class="r"><code>#Create a dataframe that holds the mean steps for weekdays and weekends.
+mean_imput &lt;- function(x) replace(x, is.na(x), mean(x, na.rm = TRUE))
 rfile_impute &lt;- ddply(rfile, ~interval, transform, steps = mean_imput(steps))</code></pre>
 <p>The following data set contains the sample data aggregated by date.</p>
 <pre class="r"><code>rfile_impute.date &lt;- aggregate(rfile_impute[1],
@@ -166,7 +167,8 @@ hist(rfile_impute.date$steps,
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
-<pre class="r"><code>rfile_impute$day &lt;- &quot;weekday&quot;
+<pre class="r"><code>#Adding new variable for weekend/weekday
+rfile_impute$day &lt;- &quot;weekday&quot;
 rfile_impute$day[weekdays(as.Date(rfile_impute$date), abb=T) %in% c(&quot;Sat&quot;,&quot;Sun&quot;)] &lt;- &quot;weekend&quot;
 table(rfile_impute$day)</code></pre>
 <pre><code>## 

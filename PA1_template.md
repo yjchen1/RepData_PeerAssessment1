@@ -132,6 +132,7 @@ library(plyr)
 ```
 
 ```r
+#Create a dataframe that holds the mean steps for weekdays and weekends.
 mean_imput <- function(x) replace(x, is.na(x), mean(x, na.rm = TRUE))
 rfile_impute <- ddply(rfile, ~interval, transform, steps = mean_imput(steps))
 ```
@@ -170,6 +171,7 @@ median(rfile_impute.date$steps) # median
 ## Are there differences in activity patterns between weekdays and weekends?
 
 ```r
+#Adding new variable for weekend/weekday
 rfile_impute$day <- "weekday"
 rfile_impute$day[weekdays(as.Date(rfile_impute$date), abb=T) %in% c("Sat","Sun")] <- "weekend"
 table(rfile_impute$day)
